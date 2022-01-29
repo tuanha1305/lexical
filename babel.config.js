@@ -1,12 +1,6 @@
 'use strict';
 
 module.exports = {
-  plugins: [
-    [
-      require('./scripts/error-codes/transform-error-messages'),
-      {noMinify: true},
-    ],
-  ],
   presets: [
     [
       '@babel/preset-env',
@@ -17,6 +11,25 @@ module.exports = {
       },
     ],
     '@babel/preset-react',
-    '@babel/preset-flow',
+  ],
+  overrides: {
+    test: /\.tsx?$/,
+    presets: [
+      '@babel/preset-env',
+      '@babel/preset-react',
+      [
+        '@babel/preset-typescript',
+        {
+          allExtensions: true,
+          isTSX: true,
+        },
+      ],
+    ],
+  },
+  plugins: [
+    [
+      require('./scripts/error-codes/transform-error-messages'),
+      {noMinify: true},
+    ],
   ],
 };
