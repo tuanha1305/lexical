@@ -77,7 +77,7 @@ function runBlockTransformers(
     const match = lineText.match(matcher);
     if (match) {
       textNode.setTextContent(lineText.slice(match[0].length));
-      replacer(elementNode, [textNode], match);
+      replacer(elementNode, [textNode], match, true);
       break;
     }
   }

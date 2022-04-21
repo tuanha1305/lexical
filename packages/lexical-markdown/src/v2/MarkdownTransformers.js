@@ -162,12 +162,17 @@ export const ORDERED_LIST: BlockTransformer = [
 
 // TODO: this transformer should be created/passed from react-aware package,
 // since <hr> is a decorator node
+// TODO: get rid of isImport flag
 export const HR: BlockTransformer = [
   /^(---|\*\*\*|___)\s?$/,
-  (parentNode) => {
+  (parentNode, _1, _2, isImport) => {
     const line = $createHorizontalRuleNode();
-    parentNode.insertBefore(line);
-    parentNode.select(0, 0);
+    if (isImport) {
+      parentNode.replace(line);
+    } else {
+      parentNode.insertBefore(line);
+      parentNode.select(0, 0);
+    }
   },
   (node: LexicalNode) => {
     return $isHorizontalRuleNode(node) ? '***' : null;

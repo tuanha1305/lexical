@@ -46,6 +46,7 @@ export type BlockImportFn = (
   parentNode: ElementNode,
   children: Array<LexicalNode>,
   match: Array<string>,
+  isImport: boolean,
 ) => void;
 
 export type BlockExportFn = (
@@ -88,7 +89,7 @@ function runBlockTransformers(
       const siblings = remainderNode
         ? [remainderNode, ...nextSiblings]
         : nextSiblings;
-      replacer(parentNode, siblings, match);
+      replacer(parentNode, siblings, match, false);
       return true;
     }
   }
